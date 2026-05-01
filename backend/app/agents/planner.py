@@ -2,9 +2,14 @@ import re
 
 
 class Planner:
+    greeting_pattern = re.compile(r"^(hi|hello|hey|yo|hola|namaste|thanks|thank you)[!. ]*$", re.I)
+
     def plan(self, query: str) -> list[str]:
         q = query.lower()
         tools: list[str] = []
+
+        if self.greeting_pattern.fullmatch(query.strip()):
+            return ["smalltalk"]
 
         if any(term in q for term in ["best", "top", "performed", "titles", "movies"]):
             tools.append("top_titles")

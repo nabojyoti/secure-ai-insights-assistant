@@ -103,3 +103,15 @@ def test_chat_rejects_out_of_scope_weather_question():
     )
     assert response.status_code == 422
     assert response.json()["error"] == "out_of_scope"
+
+
+def test_chat_allows_short_greeting():
+    response = client.post(
+        "/api/v1/chat",
+        json={"query": "Hi"},
+        headers=auth_headers(),
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["trace"]["tools_used"] == ["smalltalk"]
+    assert "internal entertainment analytics" in payload["answer"]

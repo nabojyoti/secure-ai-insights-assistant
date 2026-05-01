@@ -34,6 +34,7 @@ docker compose -f docker/docker-compose.yml up --build
 Then open:
 
 - API docs: `http://localhost:8000/docs`
+- Frontend: `http://localhost:5173`
 - Liveness: `http://localhost:8000/health`
 - Readiness: `http://localhost:8000/ready`
 
@@ -83,6 +84,30 @@ curl -X POST http://localhost:8000/api/v1/chat \
 - `GET /api/v1/analytics/strongest-city`
 - `GET /api/v1/analytics/weak-genres`
 - `GET /api/v1/analytics/audience-segments`
+
+## Frontend
+
+The React frontend lives in `frontend/` and provides:
+
+- Chat assistant UI with sample assignment questions.
+- Year/month filters and seeded-data reconnect action.
+- Insights panel with title revenue chart, strongest city, weak genres, and audience segments.
+- Tool trace and source snippets from the backend response.
+- Query history for recent prompts.
+
+Run only the frontend locally:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend expects the backend at `http://localhost:8000`. Override with `frontend/.env`:
+
+```bash
+VITE_API_BASE_URL=http://localhost:8000
+```
 
 ## Assignment Coverage
 

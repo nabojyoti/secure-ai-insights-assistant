@@ -17,3 +17,7 @@ wheels/
 .pytest_cache/
 
 Futures First - Quantitative Engineer - Task.pdf
+
+# Frontend
+frontend/node_modules/
+frontend/dist/

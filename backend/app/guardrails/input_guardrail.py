@@ -22,6 +22,8 @@ class InputGuardrailResult:
 
 
 class InputGuardrail:
+    greeting_pattern = re.compile(r"^(hi|hello|hey|yo|hola|namaste|thanks|thank you)[!. ]*$", re.I)
+
     blocked_patterns = {
         "prompt_injection": re.compile(
             r"\b(ignore|bypass|override|disable)\b.{0,40}\b(instruction|guardrail|policy|system)\b",
@@ -54,7 +56,7 @@ class InputGuardrail:
 
     def validate(self, query: str) -> InputGuardrailResult:
         sanitized = re.sub(r"\s+", " ", query).strip()
-        if len(sanitized) < 3:
+        if len(sanitized) < 2:
             raise GuardrailViolation("Question is too short")
         if len(sanitized) > 1000:
             raise GuardrailViolation("Question exceeds the allowed length")
@@ -64,6 +66,9 @@ class InputGuardrail:
             raise GuardrailViolation(
                 "Question was blocked by input guardrails because it requested unsafe or unauthorized access"
             )
+
+        if self.greeting_pattern.fullmatch(sanitized):
+            return InputGuardrailResult(sanitized_query=sanitized, flags=[])
 
         if self.external_domain_pattern.search(sanitized) or not self.allowed_domain_pattern.search(sanitized):
             raise OutOfScopeQuestion(

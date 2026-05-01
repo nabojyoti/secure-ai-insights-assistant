@@ -83,7 +83,9 @@ class Orchestrator:
 
         for tool in state.get("tools", []):
             try:
-                if tool == "top_titles":
+                if tool == "smalltalk":
+                    metrics["smalltalk"] = {"intent": "greeting"}
+                elif tool == "top_titles":
                     metrics[tool] = self.analytics.top_titles(db, year=self._extract_year(query) or 2025)
                     sources.append({"source_type": "sql", "name": "movies + watch_activity"})
                 elif tool == "compare_titles":
@@ -163,6 +165,9 @@ class Orchestrator:
         return state
 
     def _compose_answer(self, metrics: dict) -> str:
+        if "smalltalk" in metrics:
+            return "Hi. I can help with internal entertainment analytics across SQL data, CSV business files, and PDF reports. Try asking which titles performed best in 2025 or why Stellar Run is trending."
+
         if "compare_titles" in metrics:
             rows = metrics["compare_titles"]
             if len(rows) >= 2:

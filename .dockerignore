@@ -1,0 +1,13 @@
+.git
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.db
+.pytest_cache
+.env
+
+frontend/node_modules
+frontend/dist
+
+Futures First - Quantitative Engineer - Task.pdf
