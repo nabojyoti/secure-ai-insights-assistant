@@ -433,7 +433,6 @@ select {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  min-height: 30px;
   margin-bottom: 12px;
 }
 
@@ -442,6 +441,22 @@ select {
   border-radius: 999px;
   background: #eaf4ef;
   color: #0e6b48;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.trace-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.trace-meta span {
+  padding: 6px 10px;
+  border: 1px solid #e1e8e2;
+  border-radius: 999px;
+  color: #66766b;
   font-size: 12px;
   font-weight: 800;
 }

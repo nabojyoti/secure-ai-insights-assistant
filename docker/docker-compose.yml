@@ -25,6 +25,7 @@ services:
       CORS_ORIGINS: http://localhost:3000,http://localhost:5173
       LOG_LEVEL: INFO
       DATA_DIR: /app/data
+      ENABLE_LLM_SYNTHESIS: ${ENABLE_LLM_SYNTHESIS:-true}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
     ports:
       - "8000:8000"

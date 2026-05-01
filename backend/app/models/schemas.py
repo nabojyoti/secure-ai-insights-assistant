@@ -37,6 +37,8 @@ class SourceReference(BaseModel):
 class ChatTrace(BaseModel):
     tools_used: list[str]
     workflow: list[str] = []
+    synthesis_engine: str | None = None
+    confidence: str | None = None
     reasoning: str
 
 
@@ -46,7 +48,7 @@ class ChatResponse(BaseModel):
     metrics: dict[str, Any]
     recommendations: list[str]
     trace: ChatTrace
-    guardrails: dict[str, Any] = {}
+    guardrails: dict[str, Any] = Field(default_factory=dict)
 
 
 class CsvIngestionResponse(BaseModel):

@@ -324,6 +324,12 @@ function TracePanel({ trace, sources }) {
           <span key={tool}>{tool}</span>
         ))}
       </div>
+      {trace?.synthesis_engine ? (
+        <div className="trace-meta">
+          <span>Engine: {trace.synthesis_engine}</span>
+          <span>Confidence: {trace.confidence || "n/a"}</span>
+        </div>
+      ) : null}
       <div className="source-list">
         {sources.map((source, index) => (
           <article key={`${source.name}-${index}`} className="source-item">

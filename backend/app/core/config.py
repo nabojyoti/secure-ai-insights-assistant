@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     ai_provider: str = "openai"
     ai_model: str = "gpt-4o-mini"
     openai_api_key: str | None = None
+    enable_llm_synthesis: bool = False
 
     model_config = SettingsConfigDict(
         env_file=".env",

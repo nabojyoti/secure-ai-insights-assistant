@@ -1,30 +1,33 @@
 import logging
-import sys
-
 from app.core.config import get_settings
 
+LOG_LEVEL = get_settings().log_level.upper()
 
-def setup_logging() -> logging.Logger:
-    settings = get_settings()
-    logger = logging.getLogger("secure_ai_insights")
-    logger.setLevel(settings.log_level.upper())
-    logger.handlers.clear()
+LOG_LEVELS = {
+    "CRITICAL": logging.CRITICAL,
+    "ERROR": logging.ERROR,
+    "WARNING": logging.WARNING,
+    "INFO": logging.INFO,
+    "DEBUG": logging.DEBUG,
+}
 
-    handler = logging.StreamHandler(sys.stdout)
-    handler.setFormatter(
-        logging.Formatter(
-            "%(asctime)s %(levelname)s %(name)s request_id=%(request_id)s %(message)s"
-        )
+log_level = LOG_LEVELS.get(LOG_LEVEL, logging.DEBUG)
+
+
+def setup_logger():
+    logger = logging.getLogger("secure_ai_insights_assistant")
+
+    logger.setLevel(log_level)
+
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(log_level)
+    console_formatter = logging.Formatter(
+        "%(asctime)s - %(name)-12s - %(levelname)-8s - [%(filename)-25s:%(lineno)4d] - %(message)s"
     )
-    logger.addHandler(handler)
+    console_handler.setFormatter(console_formatter)
+    logger.addHandler(console_handler)
+
     return logger
 
 
-class RequestLoggerAdapter(logging.LoggerAdapter):
-    def process(self, msg, kwargs):
-        extra = kwargs.setdefault("extra", {})
-        extra.setdefault("request_id", "-")
-        return msg, kwargs
-
-
-logger = RequestLoggerAdapter(setup_logging(), {})
+logger = setup_logger()
