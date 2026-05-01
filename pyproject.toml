@@ -1,0 +1,28 @@
+[project]
+name = "secure-ai-insights-assistant"
+version = "0.1.0"
+description = "Secure multi-source AI insights assistant backend"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "fastapi==0.115.6",
+    "guardrails-ai==0.6.2",
+    "httpx==0.28.1",
+    "langchain==0.3.14",
+    "langchain-core==0.3.29",
+    "langgraph==0.2.61",
+    "lxml==4.9.4",
+    "psycopg2-binary==2.9.10",
+    "pydantic-settings==2.7.1",
+    "pypdf==5.1.0",
+    "pytest==8.3.4",
+    "pytest-asyncio==0.22.0",
+    "python-jose[cryptography]==3.3.0",
+    "python-multipart==0.0.20",
+    "sqlalchemy==2.0.36",
+    "uvicorn[standard]==0.34.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "backend"]
+testpaths = ["tests"]
